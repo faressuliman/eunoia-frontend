@@ -6,6 +6,8 @@ import {
 
 import { lazy } from "react";
 import Layout from "../layout/Layout";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
 const Home = lazy(() => import("../pages"));
 const About = lazy(() => import("../pages/About"));
 const Contact = lazy(() => import("../pages/Contact"));
@@ -17,6 +19,8 @@ const router = createBrowserRouter(
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
                 <Route path="contact" element={<Contact />} />
+                <Route path="register" element={<Register />} />
+                <Route path="login" element={<Login />} />
             </Route>
         </>
     )
