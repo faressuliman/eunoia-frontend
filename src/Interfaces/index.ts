@@ -5,8 +5,13 @@ export interface IRegisterList{
     label: string
 }
 export interface ILoginList{
-    name: "email"|"password" ,
+    name: "identifier"|"password" ,
     id: string,
     type: string,
     label: string
+}
+export interface IErrorResponse{
+    error:{
+        message?:string;
+    }
 }

@@ -42,7 +42,7 @@ export const registerSchema =  z.object({
 })
 export const loginSchema =  z.object({
    
-    email:z.string().trim().min(1,{message:"Email is required"}).email({message:"please enter a valid email"}),
+    identifier:z.string().trim().min(1,{message:"Email is required"}).email({message:"please enter a valid email"}),
     password: z.string().trim().min(1, { message: "Password is required" }).min(3,"Min password length is 3"),
    
 })

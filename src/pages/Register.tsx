@@ -10,18 +10,54 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AppleIcon from '@mui/icons-material/Apple';
 import Root from "../Components/Divider";
 import bgImage from "../assets/Images/a44e6eb6f3a4644fe33e354c679933219a0127af.jpg";
+import axiosInstance from "../Config/axios.config";
+import toast from "react-hot-toast";
+import type { AxiosError } from "axios";
+import type { IErrorResponse } from "../Interfaces";
+import {CircularProgress} from "@mui/material";
+import { useNavigate } from "react-router";
 interface IProps{
 
 }
 
 const Register = ({}:IProps) => {
+  const navigate = useNavigate()
+  const [isLoading,setIsLoading] = useState(false)
   const {register,handleSubmit,formState:{errors}} = useForm<registerFormData>({resolver:zodResolver(registerSchema)})
   const submitData = async(data:registerFormData)=>{
+    setIsLoading(true)
     console.log("Worked , Data: ",data)
     try {
-      
+      const {status} = await axiosInstance.post("/auth/local/register",data)
+      if(status===200){
+        toast.success("Register Succeed , Redirecting To Login After 2 Seconds", {
+    position: "bottom-center",
+    duration: 2000,
+    style: {
+    backgroundColor: "#8C7667",
+    color: "white",
+    width: "fit-content",
+  },
+
+}
+   )   
+  setTimeout(()=>{navigate("/login")},2000)
+  
+  }
     } catch (error) {
-      
+      const errorObj = error as AxiosError<IErrorResponse>
+      toast.error(`${`${errorObj.response?.data.error.message}`}`, {
+        position: "bottom-center",
+    duration: 2000,
+    style: {
+    backgroundColor: "#8C7667",
+    color: "white",
+    width: "fit-content",
+  }
+      })
+    }
+    finally{
+      setIsLoading(false)
     }
   }
    const [show, setShow] = useState({ password: false, confirmPassword: false });
@@ -128,7 +164,14 @@ const Register = ({}:IProps) => {
     
 
     <Button variant="contained"  type="submit" sx={{ mt:2, py:1.5 , backgroundColor:"white",transition:"all 0.4s ease","&:hover":{boxShadow:"4px 4px 20px #8C7667"} , color:"#8C7667" , }}>
-     SignUP
+     {isLoading? 
+     <Stack direction={"row"} gap={2}>
+     <CircularProgress size={20}/>
+     <Typography>Loading</Typography>
+     </Stack>
+     :
+     "SignUp"
+     }
     </Button>
     <Typography textAlign={"center"} marginTop={3} sx={{display:"flex", justifyContent:"center" , gap:1 , color:"#8C7667"}}>
       Already Have An Account? 

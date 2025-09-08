@@ -1,5 +1,6 @@
 import { RouterProvider } from 'react-router-dom'
 import router from './router'
+import { Toaster } from 'react-hot-toast'
 // import BasicButtons from './Components/ButtunMui'
 // import TextFieldMui from './Components/TextFieldMui'
 
@@ -9,6 +10,7 @@ function App() {
     <>
     {/* <BasicButtons/> */}
     {/* <TextFieldMui/> */}
+    <Toaster position="top-right" reverseOrder={false} />
       <RouterProvider router={router} />
     </>
   )
