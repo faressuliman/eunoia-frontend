@@ -29,8 +29,8 @@ export const RegisterList : IRegisterList[] = [
 export const LoginList : ILoginList[] = [
   
   {
-    name: "email",
-    id: "email",
+    name: "identifier",
+    id: "identifier",
     type: "email",
     label: "Email"
   },

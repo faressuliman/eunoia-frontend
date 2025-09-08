@@ -8,6 +8,10 @@ import { lazy } from "react";
 import Layout from "../layout/Layout";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import AsideLayout from "../layout/AsideLayout";
+import TrackingEmotions from "../pages/TrackingEmotions";
+import Chat from "../pages/TrackingEmotions/Chat";
+import Profile from "../pages/TrackingEmotions/Profile";
 const Home = lazy(() => import("../pages"));
 const About = lazy(() => import("../pages/About"));
 const Contact = lazy(() => import("../pages/Contact"));
@@ -21,6 +25,13 @@ const router = createBrowserRouter(
                 <Route path="contact" element={<Contact />} />
                 <Route path="register" element={<Register />} />
                 <Route path="login" element={<Login />} />
+            </Route>
+
+            <Route path="/TrackingEmotions" element={<AsideLayout/>}>
+
+                <Route index element={<TrackingEmotions/>} />
+                <Route path="chat"element={<Chat/>} />
+                <Route path="profile"element={<Profile/>} />
             </Route>
         </>
     )

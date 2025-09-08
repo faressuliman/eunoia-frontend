@@ -14,6 +14,14 @@ import GoogleIcon from '@mui/icons-material/Google';
 import AppleIcon from '@mui/icons-material/Apple';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { url } from "zod";
+import axiosInstance from "../Config/axios.config";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { CircularProgress } from "@mui/material";
+import type { AxiosError } from "axios";
+import type { IErrorResponse } from "../Interfaces";
+
+
 
 
 
@@ -22,13 +30,44 @@ interface IProps{
 }
 
 const Login = ({}:IProps) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
   const {register,handleSubmit,formState:{errors}} = useForm<loginFormData>({resolver:zodResolver(loginSchema)})
   const submitData = async(data:loginFormData)=>{
+    setIsLoading(true)
     console.log("Worked , Data: ",data)
     try {
+      const {status} = await axiosInstance.post("/auth/local",data)
+      if(status===200){
       
+        toast.success("Login Succeed , Redirecting To Login After 2 Seconds", {
+    position: "bottom-center",
+    duration: 2000,
+    style: {
+    backgroundColor: "#8C7667",
+    color: "white",
+    width: "fit-content",
+  },
+});
+  setTimeout(()=>{navigate("/")},2000)
+};
     } catch (error) {
-      
+      console.log(error)
+      const errorObj = error as AxiosError<IErrorResponse>
+      toast.error(`${errorObj.response?.data.error.message}` ,{
+    position: "bottom-center",
+    duration: 2000,
+    style: {
+    backgroundColor: "#8C7667",
+    color: "white",
+    width: "fit-content",
+  },
+  }
+)
+}
+
+    finally{
+      setIsLoading(false)
     }
   }
    const [show, setShow] = useState(false);
@@ -104,7 +143,14 @@ const Login = ({}:IProps) => {
     </FormGroup>
 
     <Button variant="contained"  type="submit" sx={{ mt:2, py:1.5 , backgroundColor:"white",transition:"all 0.4s ease","&:hover":{boxShadow:"4px 4px 20px #8C7667"}, color:"#8C7667" }}>
-      Login
+      {isLoading? 
+      <Stack direction="row" alignItems="center" spacing={1}>
+      <CircularProgress size={20} />
+      <Typography>Loading...</Typography>
+      </Stack> 
+      : 
+      "LogIn"
+      }
     </Button>
     <Typography textAlign={"center"} marginTop={3} sx={{display:"flex", justifyContent:"center" , gap:1 , color:"#8C7667"}}>
       New To Eunoia? 
