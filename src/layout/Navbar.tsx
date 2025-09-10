@@ -76,6 +76,7 @@ const Navbar: React.FC = () => {
                     borderRadius: '8px',
                     fontWeight: 'bold',
                     transition: "all 0.2s ease-in-out",
+                    padding:"4px 14px",
                     '&:hover': {
                       backgroundColor: '#8C7667',
                       color: 'white',

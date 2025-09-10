@@ -15,3 +15,18 @@ export interface IErrorResponse{
         message?:string;
     }
 }
+
+export interface IEunoia {
+    id: number;
+    title: string;
+    description: string;
+    icon: string;
+}
+
+export interface IMeetEunoia {
+    id: number;
+    name: string;
+    feedback: string;
+    rating: number;
+    avatar: string;
+}
