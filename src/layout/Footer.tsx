@@ -7,11 +7,11 @@ const Footer = () => {
       sx={{
         backgroundColor: "#A8B5A0",
         color: "white",
-        padding: "48px 0 30px 0",
+        padding: {xs: "48px 0px", md: "48px 28px 30px 28px"},
         marginTop: "auto"
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{paddingX: "50px"}}>
         <Stack 
           direction={{ xs: "column", md: "row" }}
           spacing={{ xs: 4, md: 6 }} 
